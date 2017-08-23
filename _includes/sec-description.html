@@ -1,0 +1,28 @@
+{% capture html %}
+    {% if page.sections != null %}
+        <h3>Additional sections</h3>
+        <ul>
+        {% for sec in page.sections %}
+            {% assign secTocFile = page.dir | append: sec | append: "/index.md" | remove_first: "/" %}
+            {% assign secInfo = site.pages | where: "path", secTocFile | first %}
+            <li>
+            <a href="{{site.baseurl}}{{secInfo.url}}">{{secInfo.title}}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% assign sectionTopics = site.pages | where: "dir", page.dir %}
+    {% if sectionTopics != null %}
+        <h3>Topics in this section</h3>
+        <ul>
+        {% for item in sectionTopics %}
+            {% if item.name != "index.md" %}
+                <li>
+                    <a href="{{site.baseurl}}{{item.url}}">{{item.title}}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endcapture %}{{ html | strip_newlines | replace:'    ','' | replace:'    ','' | replace:'  ',' ' }}

@@ -1,0 +1,41 @@
+
+
+{% capture html %}
+<ul>
+    {% if include.context == "/" %}
+        <li class="{% if page.url == "/" %}active{% endif %}">
+            <a href="{{ site.baseurl }}/">Welcome to Everest</a>
+        </li>
+        {% assign tocFile = "topics/index.md" %}
+    {% else %}
+        {% assign tocFile = include.context %}    
+    {% endif %}
+
+    {% assign tocPage = site.pages | where: "path", tocFile | first %}
+{% comment %}
+    <li>TOC: {{tocFile}}</li>
+{% endcomment %}
+    {%if tocPage.sections != null %}
+        {% for sec in tocPage.sections %}
+            {% assign secTocFile = tocPage.dir | append: sec | append: "/index.md" | remove_first: "/" %}
+            {% assign secInfo = site.pages | where: "path", secTocFile | first %}
+            <li class="{% if secInfo.url == page.url %}active{% endif %}">
+                <a href="{{site.baseurl}}{{secInfo.url}}">{{ secInfo.title }}</a>
+            </li>
+            {% include nav.html context=secTocFile curTocPage=tocPage %}
+        {% endfor %}
+    {% endif %}
+
+    {% assign sectionTopics = site.pages | where: "dir", tocPage.dir %}
+    {% for topic in sectionTopics %}
+        {% if topic.name != "index.md" %}
+            <li class="{% if page.url contains topic.url %}active{% endif %}">
+                <a href="{{site.baseurl}}{{topic.url}}">{{topic.title}}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+
+</ul>
+{% endcapture %}{{ html | strip_newlines | replace:'    ','' | replace:'    ','' | replace:'  ',' ' }}
+
+{% assign tocPage = include.curTocPage %}

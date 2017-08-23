@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+# Root welcome page
+
 # Everest™ Overview
 
 Everest Software, Inc. welcomes you to **Everest**, the next generation business automation software. We, at Everest Software, understand that software does not run businesses; people do. Unlike some other business software, **Everest** does not require you to change the way you do your business; it follows real-life business processes. 
@@ -10,3 +12,23 @@ Everest Software, Inc. welcomes you to **Everest**, the next generation business
 Owners and managers looking for the robustness and scalability of a SQL Server database; multi-currency; and integrated e-mail capabilities can now get all the help they will ever need in terms of automation, from these and other features in this edition. 
 
 With **Everest Advanced Edition**, you get a powerful yet affordable solution, right out-of-the-box.
+
+
+
+
+{% comment %}
+{% assign pgs = site.pages | where:"toc-root", "true" %}
+
+{% for p in pgs %}
+  <ul>
+    <li>Page:</li>
+    <li>{{p}}</li>
+  </ul>
+{% endfor %}
+
+    {% assign tocPage = site.pages | where:"path", "topics/index.md" | first %}
+
+    <p>tocPage:</p>
+    <p>{{tocPage}}</p>
+
+{% endcomment %}

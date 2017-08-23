@@ -16,7 +16,7 @@
 title: Everest Advanced Edition
 email: success@everestsoftwareinc.com
 description:
-baseurl: "/help-test" # the subpath of your site, e.g. /blog
+baseurl: "/test-help2" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
 #relative_permalinks: false
